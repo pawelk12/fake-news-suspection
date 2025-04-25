@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from datasets import Dataset
 
 class Dataset:
     def __init__(self):
@@ -28,9 +29,11 @@ class Dataset:
         self.frame['content'] = self.frame['title'] + ' ' + self.frame['text']
         self.frame.drop('title', axis=1, inplace=True)
         self.frame.drop('text', axis=1, inplace=True)
+        
 
     def divide_train_test(self):
-        X_train, X_test, y_train, y_test = train_test_split(self.frame['content'], self.frame['label'], test_size=0.2, random_state=42)
+        self.train_texts, self.test_texts, self.train_labels, self.test_labels = train_test_split(
+            self.frame["content"].tolist(), self.frame["label"].tolist(), test_size=0.2, random_state=42)
 
 
 
